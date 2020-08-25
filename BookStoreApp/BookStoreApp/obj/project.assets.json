@@ -8926,7 +8926,7 @@
       "outputPath": "/Users/parth/Projects/BookStoreApp/BookStoreApp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/parth/.config/NuGet/NuGet.Config"
+        "/Users/parth/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
