@@ -10,38 +10,38 @@ using BookStoreApp.Data;
 
 namespace BookStoreApp.Controllers
 {
-    public class BooksController : Controller
+    public class PrintersController : Controller
     {
         private readonly EFBookContext _context;
 
-        public BooksController(EFBookContext context)
+        public PrintersController(EFBookContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Books.ToListAsync());
+            return View(await _context.Printers.ToListAsync());
         }
 
         public IActionResult Create()
         {
-            ViewBag.data = _context.Books.ToList();
+            ViewBag.data = _context.Printers.ToList();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name")] Book book)
+        public async Task<IActionResult> Create([Bind("ID,Name,Brand,Model")] Printer printer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(book);
+                _context.Add(printer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(book);
+            return View(printer);
         }
         public async Task<IActionResult> Details(int? id)
         {
@@ -50,14 +50,14 @@ namespace BookStoreApp.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Books
+            var printer = await _context.Printers
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (book == null)
+            if (printer == null)
             {
                 return NotFound();
             }
 
-            return View(book);
+            return View(printer);
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -67,22 +67,22 @@ namespace BookStoreApp.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Books
+            var printer = await _context.Printers
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (book == null)
+            if (printer == null)
             {
                 return NotFound();
             }
 
-            return View(book);
+            return View(printer);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var book = await _context.Books.FindAsync(id);
-            _ = _context.Books.Remove(book);
+            var printer = await _context.Printers.FindAsync(id);
+            _ = _context.Printers.Remove(printer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -94,19 +94,19 @@ namespace BookStoreApp.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Books.FindAsync(id);
-            if (book == null)
+            var printer = await _context.Printers.FindAsync(id);
+            if (printer == null)
             {
                 return NotFound();
             }
-            return View(book);
+            return View(printer);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Model,Brand")] Printer printer)
         {
-            if (id != book.ID)
+            if (id != printer.ID)
             {
                 return NotFound();
             }
@@ -115,12 +115,12 @@ namespace BookStoreApp.Controllers
             {
                 try
                 {
-                    _context.Update(book);
+                    _context.Update(printer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BookExists(book.ID))
+                    if (!PrinterExists(printer.ID))
                     {
                         return NotFound();
                     }
@@ -131,16 +131,16 @@ namespace BookStoreApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(book);
+            return View(printer);
         }
-        private bool BookExists(int id)
+        private bool PrinterExists(int id)
         {
-            return _context.Books.Any(e => e.ID == id);
+            return _context.Printers.Any(e => e.ID == id);
         }
 
-        public IActionResult Printers()
+        public IActionResult Books()
         {
-            return this.RedirectToAction("Index","Printers");
+            return this.RedirectToAction("Index", "Books");
         }
     }
 }

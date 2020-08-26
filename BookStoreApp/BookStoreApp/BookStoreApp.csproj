@@ -8,6 +8,7 @@
     <Folder Include="DAL\" />
     <Folder Include="Data\" />
     <Folder Include="Views\Books\" />
+    <Folder Include="Views\Printers\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
