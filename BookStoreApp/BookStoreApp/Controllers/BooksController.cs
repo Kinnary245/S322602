@@ -137,10 +137,5 @@ namespace BookStoreApp.Controllers
         {
             return _context.Books.Any(e => e.ID == id);
         }
-
-        public IActionResult Printers()
-        {
-            return this.RedirectToAction("Index","Printers");
-        }
     }
 }
